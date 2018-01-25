@@ -1,4 +1,4 @@
-package harals
+package chameleon
 
 import io.circe._, io.circe.parser._, io.circe.syntax._
 

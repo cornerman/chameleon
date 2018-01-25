@@ -1,4 +1,4 @@
-package harals
+package chameleon
 
 import _root_.boopickle.Default._
 import java.nio.ByteBuffer

@@ -40,10 +40,10 @@ lazy val commonSettings = Seq(
 enablePlugins(ScalaJSPlugin)
 
 lazy val root = (project in file("."))
-  .aggregate(haralsJS, haralsJVM)
+  .aggregate(chameleonJS, chameleonJVM)
   .settings(commonSettings)
 
-lazy val harals = crossProject.crossType(CrossType.Pure)
+lazy val chameleon = crossProject.crossType(CrossType.Pure)
   .settings(commonSettings)
   .settings(
     libraryDependencies ++=
@@ -54,5 +54,5 @@ lazy val harals = crossProject.crossType(CrossType.Pure)
       Nil
   )
 
-lazy val haralsJS = harals.js
-lazy val haralsJVM = harals.jvm
+lazy val chameleonJS = chameleon.js
+lazy val chameleonJVM = chameleon.jvm

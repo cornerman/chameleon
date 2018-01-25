@@ -1,4 +1,4 @@
-package harals
+package chameleon
 
 trait Serializer[Type, PickleType] {
   def serialize(arg: Type): PickleType
