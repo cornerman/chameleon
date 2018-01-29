@@ -8,6 +8,7 @@ object Deps {
 
   val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.0.4")
   val boopickle = dep("io.suzaku" %%% "boopickle" % "1.2.6")
+  val cats = dep("org.typelevel" %%% "cats-core" % "1.0.1")
   val circe = new {
     private val version = "0.9.0"
     val core = dep("io.circe" %%% "circe-core" % version)
