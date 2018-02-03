@@ -14,9 +14,12 @@ object Serializer {
   }
 }
 
-trait Deserializer[Type, PickleType] {
+trait Deserializer[Type, PickleType] { self =>
   def deserialize(arg: PickleType): Either[Throwable, Type]
   final def map[T](f: Type => T) = Deserializer.functor[PickleType].map(this)(f)
+  final def flatMap[T](f: Type => Either[Throwable, T]) = new Deserializer[T, PickleType] {
+    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.flatMap(f)
+  }
 }
 object Deserializer {
   implicit def functor[PickleType] = new cats.Functor[({ type S[T] = Deserializer[T, PickleType]})#S] {
@@ -25,3 +28,4 @@ object Deserializer {
     }
   }
 }
+
