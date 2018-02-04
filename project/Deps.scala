@@ -14,5 +14,9 @@ object Deps {
     val core = dep("io.circe" %%% "circe-core" % version)
     val parser = dep("io.circe" %%% "circe-parser" % version)
   }
+  val scodec = new {
+    val core = dep("org.scodec" %%% "scodec-core" % "1.10.3")
+    val bits = dep("org.scodec" %%% "scodec-bits" % "1.1.5")
+  }
   val upickle = dep("com.lihaoyi" %%% "upickle" % "0.5.1")
 }
