@@ -1,8 +1,9 @@
-package chameleon
+package chameleon.ext
 
+import chameleon._
 import io.circe._, io.circe.parser._, io.circe.syntax._
 
-object Circe {
+object circe {
   implicit def circeSerializer[T : Encoder]: Serializer[T, String] = new Serializer[T, String] {
     override def serialize(arg: T): String = arg.asJson.noSpaces
   }

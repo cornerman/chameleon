@@ -1,8 +1,9 @@
-package chameleon
+package chameleon.ext
 
-import cats.{Contravariant, Functor, Invariant}
+import chameleon._
+import _root_.cats.{Contravariant, Functor, Invariant}
 
-object Cats {
+object cats {
   implicit def contravariantSerializer[PickleType]: Contravariant[Serializer[?, PickleType]] = new Contravariant[Serializer[?, PickleType]] {
     override def contramap[A,B](s: Serializer[A, PickleType])(f: B => A): Serializer[B, PickleType] = s.contramap(f)
   }

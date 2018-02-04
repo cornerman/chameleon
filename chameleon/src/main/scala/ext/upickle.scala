@@ -1,10 +1,11 @@
-package chameleon
+package chameleon.ext
 
+import chameleon._
 import _root_.upickle.default._
 
 import scala.util.{Try, Success, Failure}
 
-object Upickle {
+object upickle {
   implicit def upickleSerializer[T: Writer]: Serializer[T, String] = new Serializer[T, String] {
     override def serialize(arg: T): String = write(arg)
   }

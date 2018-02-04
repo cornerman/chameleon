@@ -1,10 +1,12 @@
-package chameleon
+package chameleon.ext
 
-import scodec.bits.BitVector
-import scodec.Codec
+import chameleon._
+import _root_.scodec.bits.BitVector
+import _root_.scodec.Codec
+
 import java.nio.ByteBuffer
 
-object Scodec {
+object scodec {
   case class DeserializeException(msg: String) extends Exception(msg)
 
   implicit def scodecSerializerDeserializer[T : Codec]: SerializerDeserializer[T, ByteBuffer] = new Serializer[T, ByteBuffer] with Deserializer[T, ByteBuffer] {

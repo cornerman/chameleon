@@ -4,7 +4,7 @@ import org.scalatest._
 import java.nio.ByteBuffer
 import boopickle.Default._
 import chameleon._
-import chameleon.Boopickle._
+import chameleon.ext.boopickle._
 
 class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
   "works" in {
