@@ -9,4 +9,6 @@ package object circe {
   implicit def circeDeserializer[T : Decoder]: Deserializer[T, String] = new Deserializer[T, String] {
     override def deserialize(arg: String): Either[Throwable, T] = decode[T](arg)
   }
+
+  val implicits = new Implicits[String]
 }

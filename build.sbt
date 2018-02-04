@@ -48,6 +48,7 @@ lazy val chameleon = crossProject.crossType(CrossType.Pure)
   .settings(
     libraryDependencies ++=
       Deps.cats.value ::
+      Deps.shapeless.value ::
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::

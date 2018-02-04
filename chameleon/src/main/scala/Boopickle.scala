@@ -16,4 +16,6 @@ package object boopickle {
         case Failure(t) => Left(t)
       }
   }
+
+  val implicits = new Implicits[ByteBuffer]
 }
