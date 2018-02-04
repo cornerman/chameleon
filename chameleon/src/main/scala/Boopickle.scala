@@ -5,7 +5,7 @@ import java.nio.ByteBuffer
 
 import scala.util.{Failure, Success, Try}
 
-package object boopickle {
+object Boopickle {
   implicit def boopickleSerializer[T : Pickler]: Serializer[T, ByteBuffer] = new Serializer[T, ByteBuffer] {
     override def serialize(arg: T): ByteBuffer = Pickle.intoBytes(arg)
   }

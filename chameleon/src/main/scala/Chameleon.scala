@@ -1,31 +1,42 @@
 package chameleon
 
-//TODO make cats.syntax import work?
-
-trait Serializer[Type, PickleType] {
+trait Serializer[Type, PickleType] { self =>
   def serialize(arg: Type): PickleType
-  final def contramap[T](f: T => Type) = Serializer.contravariant[PickleType].contramap(this)(f)
+
+  final def contramap[T](f: T => Type) = new Serializer[T, PickleType] {
+    def serialize(arg: T): PickleType = self.serialize(f(arg))
+  }
 }
 object Serializer {
-  implicit def contravariant[PickleType] = new cats.Contravariant[({ type S[T] = Serializer[T, PickleType]})#S] {
-    def contramap[A,B](s: Serializer[A, PickleType])(f: B => A): Serializer[B, PickleType] = new Serializer[B, PickleType] {
-      def serialize(arg: B): PickleType = s.serialize(f(arg))
-    }
+  def apply[Type, PickleType](implicit s: Serializer[Type, PickleType]): Serializer[Type, PickleType] = s
+
+  implicit def identitySerializer[T]: Serializer[T, T] = new Serializer[T, T] {
+    def serialize(arg: T): T = arg
   }
 }
 
 trait Deserializer[Type, PickleType] { self =>
   def deserialize(arg: PickleType): Either[Throwable, Type]
-  final def map[T](f: Type => T) = Deserializer.functor[PickleType].map(this)(f)
+
+  final def map[T](f: Type => T) = new Deserializer[T, PickleType] {
+    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.map(f)
+  }
+
   final def flatMap[T](f: Type => Either[Throwable, T]) = new Deserializer[T, PickleType] {
     def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.flatMap(f)
   }
 }
 object Deserializer {
-  implicit def functor[PickleType] = new cats.Functor[({ type S[T] = Deserializer[T, PickleType]})#S] {
-    def map[A,B](s: Deserializer[A, PickleType])(f: A => B): Deserializer[B, PickleType] = new Deserializer[B, PickleType] {
-      def deserialize(arg: PickleType): Either[Throwable, B] = s.deserialize(arg).right.map(f)
-    }
+  def apply[Type, PickleType](implicit d: Deserializer[Type, PickleType]): Deserializer[Type, PickleType] = d
+
+  implicit def identityDeserializer[T]: Deserializer[T, T] = new Deserializer[T, T] {
+    def deserialize(arg: T): Either[Throwable, T] = Right(arg)
   }
 }
 
+object SerializerDeserializer {
+  def apply[Type, PickleType](implicit s: Serializer[Type, PickleType], d: Deserializer[Type, PickleType]) = new Serializer[Type, PickleType] with Deserializer[Type, PickleType] {
+    def serialize(arg: Type): PickleType = s.serialize(arg)
+    def deserialize(arg: PickleType): Either[Throwable, Type] = d.deserialize(arg)
+  }
+}
