@@ -10,5 +10,9 @@ package object circe {
     override def deserialize(arg: String): Either[Throwable, T] = decode[T](arg)
   }
 
-  val implicits = new Implicits[String]
+  val joiner = new PickleTypeJoiner[String] {
+    def join(p1: String, p2: String): String = p1 + p2
+    val empty = ""
+  }
+  val implicits = new Implicits[String](joiner)
 }

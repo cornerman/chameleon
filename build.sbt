@@ -52,6 +52,9 @@ lazy val chameleon = crossProject.crossType(CrossType.Pure)
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
+
+      Deps.circe.generic.value % Test ::
+      Deps.circe.shapes.value % Test ::
       Deps.scalaTest.value % Test ::
       Nil
   )

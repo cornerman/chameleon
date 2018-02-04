@@ -6,8 +6,9 @@ import boopickle.DefaultBasic._
 import chameleon._
 import chameleon.boopickle._
 
+sealed trait TestTrait
+case class Test(x: Int, y: Boolean, z: String) extends TestTrait
 class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
-  case class Test(x: Int, y: Boolean, z: String)
 
   "works" in {
     val serializer = implicitly[Serializer[String, ByteBuffer]]
@@ -19,10 +20,10 @@ class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
     result mustEqual Right(input)
   }
 
-  "works with case class native" in {
+  "works with case class boopickle shapeless" in {
     import chameleon.boopickle.implicits._
-    val serializer = implicitly[Serializer[Test, ByteBuffer]]
-    val deserializer = implicitly[Deserializer[Test, ByteBuffer]]
+    val serializer = implicitly[Serializer[TestTrait, ByteBuffer]]
+    val deserializer = implicitly[Deserializer[TestTrait, ByteBuffer]]
 
     val input = Test(1, true, "zirkus")
     val s = serializer.serialize(input)
@@ -34,8 +35,8 @@ class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
 
   "works with case class boopickle" in {
     import _root_.boopickle.Default._
-    val serializer = implicitly[Serializer[Test, ByteBuffer]]
-    val deserializer = implicitly[Deserializer[Test, ByteBuffer]]
+    val serializer = implicitly[Serializer[TestTrait, ByteBuffer]]
+    val deserializer = implicitly[Deserializer[TestTrait, ByteBuffer]]
 
     val input = Test(1, true, "zirkus")
     val s = serializer.serialize(input)
@@ -44,6 +45,33 @@ class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
 
     result mustEqual Right(input)
   }
+
+  // "works with case class circe shapeless" in {
+  //   import chameleon.circe.implicits._
+  //   val serializer = implicitly[Serializer[Test, String]]
+  //   val deserializer = implicitly[Deserializer[Test, String]]
+
+  //   val input = Test(1, true, "zirkus")
+  //   val s = serializer.serialize(input)
+  //   println("native s " + s.position() + " , " + s.limit() + " , " + s.remaining())
+  //   val result = deserializer.deserialize(s)
+
+  //   result mustEqual Right(input)
+  // }
+
+  // "works with case class circe" in {
+  //   import io.circe._, io.circe.parser._, io.circe.syntax._, io.circe.shapes._, io.circe.generic._
+  //   val encoder = implicitly[Encoder[Test]]
+  //   // val serializer = implicitly[Serializer[Test, String]]
+  //   // val deserializer = implicitly[Deserializer[Test, String]]
+
+  //   // val input = Test(1, true, "zirkus")
+  //   // val s = serializer.serialize(input)
+  //   // println("boop s " + s.position() + " , " + s.limit() + " , " + s.remaining())
+  //   // val result = deserializer.deserialize(s)
+
+  //   // result mustEqual Right(input)
+  // }
 
   "transform" in {
     val serializer = implicitly[Serializer[String, ByteBuffer]]

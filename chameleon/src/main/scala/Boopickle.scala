@@ -17,5 +17,13 @@ package object boopickle {
       }
   }
 
-  val implicits = new Implicits[ByteBuffer]
+  val joiner = new PickleTypeJoiner[ByteBuffer] {
+    def join(p1: ByteBuffer, p2: ByteBuffer): ByteBuffer = {
+      val buffer = ByteBuffer.allocate(p1.remaining() + p2.limit()).put(p1).put(p2)
+      buffer.flip()
+      buffer
+    }
+    val empty = ByteBuffer.allocate(0)
+  }
+  val implicits = new Implicits[ByteBuffer](joiner)
 }

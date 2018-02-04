@@ -33,45 +33,48 @@ object Deserializer {
   }
 }
 
-class Implicits[PickleType] {
+trait PickleTypeJoiner[PickleType] {
+  def join(p1: PickleType, p2: PickleType): PickleType
+  def empty: PickleType
+}
+
+class Implicits[PickleType](joiner: PickleTypeJoiner[PickleType]) {
   import shapeless._
 
   type SerializerT[T] = Serializer[T, PickleType]
-  type SerializerList = SerializerT[List[PickleType]]
   type DeserializerT[T] = Deserializer[T, PickleType]
-  type DeserializerList = DeserializerT[List[PickleType]]
 
-  implicit def hconsSerializer[H, T <: HList](implicit hs: SerializerT[H], ts: SerializerT[T], ls: SerializerList): SerializerT[H :: T] = new SerializerT[H :: T] {
+  implicit def hconsSerializer[H, T <: HList](implicit hs: SerializerT[H], ts: SerializerT[T]): SerializerT[H :: T] = new SerializerT[H :: T] {
     override def serialize(value: H :: T): PickleType = value match {
       case h :: t =>
         val sh = hs.serialize(h)
         val st = ts.serialize(t)
-        ls.serialize(sh :: st :: Nil)
+        joiner.join(sh, st)
     }
   }
 
-  implicit def hnilSerializer(implicit ls: SerializerList): SerializerT[HNil] = new SerializerT[HNil] {
-    override def serialize(value: HNil): PickleType = ls.serialize(Nil)
+  implicit def hnilSerializer: SerializerT[HNil] = new SerializerT[HNil] {
+    override def serialize(value: HNil): PickleType = joiner.empty
   }
 
   implicit def genericSerializer[T, R](implicit gen: Generic.Aux[T, R], rs: SerializerT[R]): SerializerT[T] = new SerializerT[T] {
     override def serialize(from: T): PickleType = rs.serialize(gen.to(from))
   }
 
-  implicit def hconsDeserializer[H, T <: HList](implicit hd: DeserializerT[H], td: DeserializerT[T], ld: DeserializerList): DeserializerT[H :: T] = new DeserializerT[H :: T] {
+  implicit def hconsDeserializer[H, T <: HList](implicit hd: DeserializerT[H], td: DeserializerT[T]): DeserializerT[H :: T] = new DeserializerT[H :: T] {
     override def deserialize(from: PickleType): Deserializer.Result[H :: T] = for {
-      from <- ld.deserialize(from)
-      head <- hd.deserialize(from.head)
-      last <- td.deserialize(from.last)
+      head <- hd.deserialize(from)
+      last <- td.deserialize(from)
     } yield head :: last
   }
 
-  implicit def hnilDeserializer(implicit ld: DeserializerList): DeserializerT[HNil] = new DeserializerT[HNil] {
-    override def deserialize(from: PickleType): Deserializer.Result[HNil] = ld.deserialize(from) match {
-      case Right(Nil) => Right(HNil)
-      case Right(list) => Left(new Exception("Expected empty list in deserializer"))
-      case Left(err) => Left(err)
-    }
+  implicit def hnilDeserializer: DeserializerT[HNil] = new DeserializerT[HNil] {
+    override def deserialize(from: PickleType): Deserializer.Result[HNil] = Right(HNil)
+      // ld.deserialize(from) match {
+      // case Right(Nil) => Right(HNil)
+      // case Right(list) => Left(new Exception("Expected empty list in deserializer"))
+      // case Left(err) => Left(err)
+    // }
   }
 
   implicit def genericDeserializer[T, R](implicit gen: Generic.Aux[T, R], rd: DeserializerT[R]): DeserializerT[T] = new DeserializerT[T] {
