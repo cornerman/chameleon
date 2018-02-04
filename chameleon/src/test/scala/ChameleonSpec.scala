@@ -35,7 +35,7 @@ class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
     val deserializer = Deserializer[String, ByteBuffer]
 
     val intSerializer = serializer.contramap[Int](_.toString)
-    val intDeserialier = deserializer.flatMap[Int](s => util.Try(s.toInt).toEither)
+    val intDeserialier = deserializer.flatMap[Int](s => Right(s.toInt))
 
     val input = 10
     val result = intDeserialier.deserialize(intSerializer.serialize(input))
