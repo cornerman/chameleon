@@ -14,4 +14,5 @@ object Deps {
     val core = dep("io.circe" %%% "circe-core" % version)
     val parser = dep("io.circe" %%% "circe-parser" % version)
   }
+  val upickle = dep("com.lihaoyi" %%% "upickle" % "0.5.1")
 }
