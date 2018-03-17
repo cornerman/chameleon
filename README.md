@@ -3,15 +3,15 @@
 
 Typeclasses for serialization
 
-Supports:
-* Circe
-* Boopickle
-* Upickle
-* Scodec
+Currently supports:
+* [circe](https://github.com/circe/circe)
+* [upickle](https://github.com/lihaoyi/upickle)
+* [boopickle](https://github.com/suzaku-io/boopickle)
+* [scodec](https://github.com/scodec/scodec)
 
 # usage
 
-Using for example Boopickle:
+Using for example boopickle:
 
 ```scala
 import chameleon._
@@ -27,4 +27,9 @@ val deserializer = Deserializer[String, ByteBuffer]
 val input = "chameleon"
 val serialized = serializer.serialize(input)
 val deserialized = deserializer.deserialize(serialized)
+```
+
+Have typeclasses for cats (`Contravariant`, `Functor`, `Invariant`):
+```scala
+import chameleon.ext.cats._
 ```
