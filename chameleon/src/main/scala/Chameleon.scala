@@ -9,10 +9,6 @@ trait Serializer[Type, PickleType] { self =>
 }
 object Serializer {
   def apply[Type, PickleType](implicit s: Serializer[Type, PickleType]): Serializer[Type, PickleType] = s
-
-  implicit def identitySerializer[T]: Serializer[T, T] = new Serializer[T, T] {
-    def serialize(arg: T): T = arg
-  }
 }
 
 trait Deserializer[Type, PickleType] { self =>
@@ -28,10 +24,6 @@ trait Deserializer[Type, PickleType] { self =>
 }
 object Deserializer {
   def apply[Type, PickleType](implicit d: Deserializer[Type, PickleType]): Deserializer[Type, PickleType] = d
-
-  implicit def identityDeserializer[T]: Deserializer[T, T] = new Deserializer[T, T] {
-    def deserialize(arg: T): Either[Throwable, T] = Right(arg)
-  }
 }
 
 object SerializerDeserializer {
