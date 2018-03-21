@@ -9,6 +9,12 @@ Currently supports:
 * [boopickle](https://github.com/suzaku-io/boopickle)
 * [scodec](https://github.com/scodec/scodec)
 
+Get via jitpack (add the following to your `build.sbt`):
+```scala
+resolvers += "jitpack" at "https://jitpack.io"
+libraryDependencies += "com.github.cornerman.chameleon" %%% "chameleon" % "master-SNAPSHOT"
+```
+
 # usage
 
 Using for example boopickle:
