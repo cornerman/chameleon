@@ -7,7 +7,7 @@ object Deps {
   import Def.{setting => dep}
 
   val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.0.4")
-  val boopickle = dep("io.suzaku" %%% "boopickle" % "1.2.6")
+  val boopickle = dep("io.suzaku" %%% "boopickle" % "1.3.0")
   val cats = dep("org.typelevel" %%% "cats-core" % "1.1.0")
   val circe = new {
     private val version = "0.9.2"
@@ -18,5 +18,5 @@ object Deps {
     val core = dep("org.scodec" %%% "scodec-core" % "1.10.3")
     val bits = dep("org.scodec" %%% "scodec-bits" % "1.1.5")
   }
-  val upickle = dep("com.lihaoyi" %%% "upickle" % "0.5.1")
+  val upickle = dep("com.lihaoyi" %%% "upickle" % "0.6.1")
 }
