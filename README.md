@@ -15,7 +15,7 @@ resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.cornerman.chameleon" %%% "chameleon" % "master-SNAPSHOT"
 ```
 
-# usage
+# Usage
 
 Using for example boopickle:
 
@@ -40,7 +40,7 @@ Have typeclasses for cats (`Contravariant`, `Functor`, `Invariant`):
 import chameleon.ext.cats._
 ```
 
-# motivation
+# Motivation
 
 Say, you want to write a library that needs serialization but abstracts over the type of serialization. Then you might end up with something like this:
 
@@ -82,7 +82,7 @@ trait Library[PickleType] {
 }
 ```
 
-Users of this library can now decide what kind of serialization they want to use and rely on existing implementation for some libraries. If you want to use this library with, e.g., JSON using circe, you can do:
+Users of this library can now decide what kind of serialization they want to use and rely on existing implementation for some serializers. If you want to use this library with, e.g., JSON using circe, you can do:
 ```
 import io.circe._, io.circe.syntax._, io.circe.generic.auto._
 import chameleon.ext.circe._
@@ -92,6 +92,6 @@ lib.readAndDo()
 lib.writeAndDo()
 ```
 
-# support additional serialization libraries
+# Support additional Serializers
 
 If your favorite serialization library is not supported yet, you can easily add it (see [existing implementations](https://github.com/cornerman/chameleon/tree/master/chameleon/src/main/scala/ext)). You need to define implicit `Serializer` and `Deserializer` instances for that library. Then, please add a PR for it.
