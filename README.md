@@ -22,7 +22,7 @@ Using for example boopickle:
 ```scala
 import chameleon._
 
-// for example
+// boopickle-specific imports
 import chameleon.ext.boopickle._
 import java.nio.ByteBuffer
 import boopickle.Default._
