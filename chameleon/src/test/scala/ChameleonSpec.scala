@@ -30,7 +30,7 @@ class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
     result mustEqual Right(input)
   }
 
-  "transform with flatMap" in {
+  "transform with contramap/flatMap" in {
     val serializer = Serializer[String, ByteBuffer]
     val deserializer = Deserializer[String, ByteBuffer]
 
