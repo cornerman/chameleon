@@ -12,7 +12,6 @@ lazy val commonSettings = Seq(
     "-explaintypes" ::
     "-feature" ::
     "-language:_" ::
-    "-Xcheckinit" ::
     "-Xfuture" ::
     "-Xlint" ::
     "-Ypartial-unification" ::
