@@ -1,3 +1,6 @@
+<p align="center">
+<img src="https://user-images.githubusercontent.com/34600369/41201195-3fc423fe-6cab-11e8-9956-a300ab40e2e7.png" alt="Vue-APlayer" width="500">
+
 # chameleon
 [![Build Status](https://travis-ci.org/cornerman/chameleon.svg?branch=master)](https://travis-ci.org/cornerman/chameleon)
 
