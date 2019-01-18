@@ -70,7 +70,7 @@ With chameleon, you can use existing typeclasses `Serializer` and `Deserializer`
 import chameleon._
 
 trait Library[PickleType] {
-    def readAndDo(d: Deserializer[Thing, PickleType]) = {
+    def readAndDo(implicit d: Deserializer[Thing, PickleType]) = {
         val pickled: PickleType = ???
         d.deserialize(pickled) match {
             case Right(thing: Thing) => ???
@@ -78,7 +78,7 @@ trait Library[PickleType] {
         }
     }
 
-    def writeAndDo(s: Serializer[Thing, PickleType]) = {
+    def writeAndDo(implicit s: Serializer[Thing, PickleType]) = {
         val thing: Thing = ???
         val pickled: PickleType = s.serialize(thing)
         ???
@@ -87,7 +87,7 @@ trait Library[PickleType] {
 ```
 
 Users of this library can now decide what kind of serialization they want to use and rely on existing implementation for some serializers. If you want to use this library with, e.g., JSON using circe, you can do:
-```
+```scala
 import io.circe._, io.circe.syntax._, io.circe.generic.auto._
 import chameleon.ext.circe._
 
