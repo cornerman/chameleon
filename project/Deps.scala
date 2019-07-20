@@ -7,6 +7,7 @@ object Deps {
   import Def.{setting => dep}
 
   val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.0.8")
+  val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.9.0")
   val boopickle = dep("io.suzaku" %%% "boopickle" % "1.3.1")
   val cats = dep("org.typelevel" %%% "cats-core" % "1.6.1")
   val circe = new {
