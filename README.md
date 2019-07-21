@@ -13,7 +13,12 @@ Currently supports:
 * [boopickle](https://github.com/suzaku-io/boopickle)
 * [scodec](https://github.com/scodec/scodec)
 
-Get via jitpack (add the following to your `build.sbt`):
+Get latest release:
+```scala
+libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.1.0"
+```
+
+Or get development snapshots via jitpack:
 ```scala
 resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.cornerman.chameleon" %%% "chameleon" % "master-SNAPSHOT"
