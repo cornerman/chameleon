@@ -15,11 +15,7 @@ lazy val commonSettings = Seq(
     "-language:_" ::
     "-Xfuture" ::
     "-Xlint" ::
-    "-Yno-adapted-args" ::
-    "-Ywarn-infer-any" ::
     "-Ywarn-value-discard" ::
-    "-Ywarn-nullary-override" ::
-    "-Ywarn-nullary-unit" ::
     "-Ywarn-extra-implicit" ::
     "-Ywarn-unused" ::
     Nil,
@@ -27,6 +23,10 @@ lazy val commonSettings = Seq(
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) =>
+        "-Ywarn-nullary-override" ::
+        "-Ywarn-nullary-unit" ::
+        "-Ywarn-infer-any" ::
+        "-Yno-adapted-args" ::
         "-Ypartial-unification" ::
         Nil
       case _ =>
