@@ -3,7 +3,7 @@ version in Global := "0.1.1-SNAPSHOT"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.10",
-  crossScalaVersions := Seq("2.11.12", "2.12.10", "2.13.0"),
+  crossScalaVersions := Seq("2.12.10", "2.13.0"),
   publishTo := sonatypePublishTo.value,
 
   scalacOptions ++=
@@ -20,15 +20,13 @@ lazy val commonSettings = Seq(
     "-Ywarn-value-discard" ::
     "-Ywarn-nullary-override" ::
     "-Ywarn-nullary-unit" ::
+    "-Ywarn-extra-implicit" ::
     "-Ywarn-unused" ::
     Nil,
 
   scalacOptions ++= {
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 12)) | Some((2, 13)) =>
-        "-Ywarn-extra-implicit" ::
-        Nil
-      case Some((2, 11)) | Some((2, 12)) =>
+      case Some((2, 12)) =>
         "-Ypartial-unification" ::
         Nil
       case _ =>
