@@ -5,8 +5,10 @@ import java.nio.ByteBuffer
 import boopickle.Default._
 import chameleon._
 import chameleon.ext.boopickle._
+import org.scalatest.freespec.AsyncFreeSpec
+import org.scalatest.matchers.must.Matchers
 
-class ChameleonSpec extends AsyncFreeSpec with MustMatchers {
+class ChameleonSpec extends AsyncFreeSpec with Matchers {
   "works" in {
     val serializer = Serializer[String, ByteBuffer]
     val deserializer = Deserializer[String, ByteBuffer]
