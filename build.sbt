@@ -1,3 +1,6 @@
+// shadow sbt-scalajs' crossProject and CrossType from Scala.js 0.6.x
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+
 organization in Global := "com.github.cornerman"
 version in Global := "0.2.1-SNAPSHOT"
 
@@ -46,7 +49,8 @@ lazy val root = (project in file("."))
     skip in publish := true
   )
 
-lazy val chameleon = crossProject.crossType(CrossType.Pure)
+lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
   .settings(commonSettings)
   .settings(
     libraryDependencies ++=
