@@ -1,6 +1,5 @@
 package test.chameleon
 
-import org.scalatest._
 import java.nio.ByteBuffer
 import boopickle.Default._
 import chameleon._
