@@ -18,5 +18,5 @@ object Deps {
     val core = dep("org.scodec" %%% "scodec-core" % "1.11.7")
     val bits = dep("org.scodec" %%% "scodec-bits" % "1.1.17")
   }
-  val upickle = dep("com.lihaoyi" %%% "upickle" % "1.1.0")
+  val upickle = dep("com.lihaoyi" %%% "upickle" % "1.2.0")
 }
