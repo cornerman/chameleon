@@ -7,7 +7,7 @@ trait Serializer[Type, PickleType] { self =>
     def serialize(arg: T): PickleType = self.serialize(f(arg))
   }
 
-  final def mapPickler[T](f: PickleType => T) = new Serializer[Type, T] {
+  final def mapSerialize[T](f: PickleType => T) = new Serializer[Type, T] {
     def serialize(arg: Type): T = f(self.serialize(arg))
   }
 }
@@ -26,8 +26,12 @@ trait Deserializer[Type, PickleType] { self =>
     def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.flatMap(f)
   }
 
-  final def contramapPickler[T](f: T => PickleType) = new Deserializer[Type, T] {
+  final def mapDeserialize[T](f: T => PickleType) = new Deserializer[Type, T] {
     def deserialize(arg: T): Either[Throwable, Type] = self.deserialize(f(arg))
+  }
+
+  final def flatmapDeserialize[T](f: T => Either[Throwable, PickleType]) = new Deserializer[Type, T] {
+    def deserialize(arg: T): Either[Throwable, Type] = f(arg).flatMap(self.deserialize)
   }
 }
 object Deserializer {
