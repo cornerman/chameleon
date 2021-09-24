@@ -5,39 +5,11 @@ organization in Global := "com.github.cornerman"
 version in Global := "0.3.1-SNAPSHOT"
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.10",
-  crossScalaVersions := Seq("2.12.10", "2.13.0"),
+  scalaVersion := "2.12.15",
+  crossScalaVersions := Seq("2.12.15", "2.13.6"),
   publishTo := sonatypePublishTo.value,
 
-  scalacOptions ++=
-    "-encoding" :: "UTF-8" ::
-    "-unchecked" ::
-    "-deprecation" ::
-    "-explaintypes" ::
-    "-feature" ::
-    "-language:_" ::
-    "-Xfuture" ::
-    "-Xlint" ::
-    "-Ywarn-value-discard" ::
-    "-Ywarn-extra-implicit" ::
-    "-Ywarn-unused" ::
-    Nil,
-
-  scalacOptions ++= {
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 12)) =>
-        "-Ywarn-nullary-override" ::
-        "-Ywarn-nullary-unit" ::
-        "-Ywarn-infer-any" ::
-        "-Yno-adapted-args" ::
-        "-Ypartial-unification" ::
-        Nil
-      case _ =>
-        Nil
-    }
-  },
-
-  addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3")
+  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full)
 )
 
 enablePlugins(ScalaJSPlugin)
