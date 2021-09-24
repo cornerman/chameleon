@@ -9,6 +9,7 @@ import java.nio.ByteBuffer
 object scodec {
   case class DeserializeException(msg: String) extends Exception(msg)
 
+  @annotation.nowarn("cat=unused") //TODO: why?
   implicit def scodecSerializerDeserializer[T : Codec]: SerializerDeserializer[T, ByteBuffer] = new Serializer[T, ByteBuffer] with Deserializer[T, ByteBuffer] {
     override def serialize(arg: T): ByteBuffer = Codec[T].encode(arg).require.toByteBuffer
     override def deserialize(arg: ByteBuffer): Either[Throwable, T] =

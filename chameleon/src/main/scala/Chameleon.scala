@@ -19,11 +19,11 @@ trait Deserializer[Type, PickleType] { self =>
   def deserialize(arg: PickleType): Either[Throwable, Type]
 
   final def map[T](f: Type => T) = new Deserializer[T, PickleType] {
-    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.map(f)
+    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).map(f)
   }
 
   final def flatMap[T](f: Type => Either[Throwable, T]) = new Deserializer[T, PickleType] {
-    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).right.flatMap(f)
+    def deserialize(arg: PickleType): Either[Throwable, T] = self.deserialize(arg).flatMap(f)
   }
 
   final def mapDeserialize[T](f: T => PickleType) = new Deserializer[Type, T] {
