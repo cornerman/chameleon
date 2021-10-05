@@ -12,7 +12,7 @@ object Deps {
   val cats = dep("org.typelevel" %%% "cats-core" % "2.6.1")
   
   val circe = new {
-    private val version = "0.13.0"
+    private val version = "0.14.1"
     val core = dep("io.circe" %%% "circe-core" % version)
     val parser = dep("io.circe" %%% "circe-parser" % version)
   }
