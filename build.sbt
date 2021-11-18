@@ -34,6 +34,14 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
 
       Deps.scalaTest.value % Test ::
       Nil
+  ).jsSettings(
+      scalacOptions += {
+        val githubRepo    = "cornerman/chameleon"
+        val local         = baseDirectory.value.toURI
+        val subProjectDir = baseDirectory.value.getName
+        val remote        = s"https://raw.githubusercontent.com/${githubRepo}/${git.gitHeadCommit.value.get}"
+        s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/"
+      },
   )
 
 lazy val chameleonJS = chameleon.js
