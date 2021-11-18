@@ -2,12 +2,10 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 organization in Global := "com.github.cornerman"
-version in Global := "0.3.1-SNAPSHOT"
 
 lazy val commonSettings = Seq(
   scalaVersion := "2.12.15",
   crossScalaVersions := Seq("2.12.15", "2.13.6"),
-  publishTo := sonatypePublishTo.value,
 
   addCompilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full)
 )
