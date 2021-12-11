@@ -1,12 +1,9 @@
-// shadow sbt-scalajs' crossProject and CrossType from Scala.js 0.6.x
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
-
 inThisBuild(Seq(
   organization := "com.github.cornerman",
 
   scalaVersion := "2.12.15",
 
-  crossScalaVersions := Seq("2.12.15", "2.13.7"),
+  crossScalaVersions := Seq("2.12.15", "2.13.7", "3.1.0"),
 
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
@@ -29,7 +26,12 @@ inThisBuild(Seq(
 ))
 
 lazy val commonSettings = Seq(
-  addCompilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full)
+  libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((3, _)) => Seq.empty
+    case _ => Seq(compilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full))
+  }),
+
+  scalacOptions --= Seq("-Xfatal-warnings")
 )
 
 enablePlugins(ScalaJSPlugin)
@@ -50,20 +52,31 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
-      Deps.scodec.core.value % Optional ::
-      Deps.scodec.bits.value % Optional ::
       Deps.upickle.value % Optional ::
 
       Deps.scalaTest.value % Test ::
-      Nil
+      Nil,
+
+    libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) => Seq(
+        Deps.scodec.core2.value % Optional,
+        Deps.scodec.bits.value  % Optional,
+      )
+      case _ => Seq(
+        Deps.scodec.core.value % Optional,
+        Deps.scodec.bits.value % Optional,
+      )
+    })
   ).jsSettings(
-      scalacOptions += {
+    scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) => Seq.empty //TODO?
+      case _ =>
         val githubRepo    = "cornerman/chameleon"
         val local         = baseDirectory.value.toURI
         val subProjectDir = baseDirectory.value.getName
         val remote        = s"https://raw.githubusercontent.com/${githubRepo}/${git.gitHeadCommit.value.get}"
-        s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/"
-      },
+        Seq(s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/")
+    })
   )
 
 lazy val chameleonJS = chameleon.js
