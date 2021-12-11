@@ -36,13 +36,6 @@ lazy val commonSettings = Seq(
 
 enablePlugins(ScalaJSPlugin)
 
-lazy val root = (project in file("."))
-  .aggregate(chameleonJS, chameleonJVM)
-  .settings(commonSettings)
-  .settings(
-    skip in publish := true
-  )
-
 lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .settings(commonSettings)
@@ -78,6 +71,3 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
         Seq(s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/")
     })
   )
-
-lazy val chameleonJS = chameleon.js
-lazy val chameleonJVM = chameleon.jvm
