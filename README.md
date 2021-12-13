@@ -15,7 +15,7 @@ Currently supports:
 
 Get latest release:
 ```scala
-libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.3.1"
+libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.3.2"
 ```
 
 Or get development snapshots via jitpack:
