@@ -15,7 +15,7 @@ object Serializer {
   def apply[Type, PickleType](implicit s: Serializer[Type, PickleType]): Serializer[Type, PickleType] = s
 
   implicit def IdentitySerializer[T]: Serializer[T, T] = new Serializer[T, T] {
-  def serialize(arg: T): T = arg
+    def serialize(arg: T): T = arg
   }
 }
 
