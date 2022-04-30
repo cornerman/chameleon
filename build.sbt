@@ -46,6 +46,7 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
       Deps.upickle.value % Optional ::
+      Deps.jsoniter.value % Optional ::
 
       Deps.scalaTest.value % Test ::
       Nil,
