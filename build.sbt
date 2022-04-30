@@ -1,52 +1,43 @@
-organization in Global := "com.github.cornerman"
-version in Global := "0.1.1-SNAPSHOT"
+inThisBuild(Seq(
+  organization := "com.github.cornerman",
+
+  scalaVersion := "2.12.15",
+
+  crossScalaVersions := Seq("2.12.15", "2.13.8", "3.1.2"),
+
+  licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
+
+  homepage := Some(url("https://github.com/cornerman/chameleon")),
+
+  scmInfo := Some(ScmInfo(
+    url("https://github.com/cornerman/chameleon"),
+    "scm:git:git@github.com:cornerman/chameleon.git",
+    Some("scm:git:git@github.com:cornerman/chameleon.git"))
+  ),
+
+  pomExtra :=
+    <developers>
+      <developer>
+        <id>jkaroff</id>
+        <name>Johannes Karoff</name>
+        <url>https://github.com/cornerman</url>
+      </developer>
+    </developers>
+))
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8"),
-  publishTo := sonatypePublishTo.value,
+  libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+    case Some((3, _)) => Seq.empty
+    case _ => Seq(compilerPlugin("org.typelevel" % "kind-projector" % "0.13.2" cross CrossVersion.full))
+  }),
 
-  scalacOptions ++=
-    "-encoding" :: "UTF-8" ::
-    "-unchecked" ::
-    "-deprecation" ::
-    "-explaintypes" ::
-    "-feature" ::
-    "-language:_" ::
-    "-Xfuture" ::
-    "-Xlint" ::
-    "-Ypartial-unification" ::
-    "-Yno-adapted-args" ::
-    "-Ywarn-infer-any" ::
-    "-Ywarn-value-discard" ::
-    "-Ywarn-nullary-override" ::
-    "-Ywarn-nullary-unit" ::
-    "-Ywarn-unused" ::
-    Nil,
-
-  scalacOptions ++= {
-    CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, 12)) =>
-        "-Ywarn-extra-implicit" ::
-        Nil
-      case _ =>
-        Nil
-    }
-  },
-
-  addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3")
+  scalacOptions --= Seq("-Xfatal-warnings")
 )
 
 enablePlugins(ScalaJSPlugin)
 
-lazy val root = (project in file("."))
-  .aggregate(chameleonJS, chameleonJVM)
-  .settings(commonSettings)
-  .settings(
-    skip in publish := true
-  )
-
-lazy val chameleon = crossProject.crossType(CrossType.Pure)
+lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
   .settings(commonSettings)
   .settings(
     libraryDependencies ++=
@@ -55,35 +46,30 @@ lazy val chameleon = crossProject.crossType(CrossType.Pure)
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
-      Deps.scodec.core.value % Optional ::
-      Deps.scodec.bits.value % Optional ::
       Deps.upickle.value % Optional ::
+      Deps.jsoniter.value % Optional ::
 
       Deps.scalaTest.value % Test ::
-      Nil
+      Nil,
+
+    libraryDependencies ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) => Seq(
+        Deps.scodec.core2.value % Optional,
+        Deps.scodec.bits.value  % Optional,
+      )
+      case _ => Seq(
+        Deps.scodec.core.value % Optional,
+        Deps.scodec.bits.value % Optional,
+      )
+    })
+  ).jsSettings(
+    scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((3, _)) => Seq.empty //TODO?
+      case _ =>
+        val githubRepo    = "cornerman/chameleon"
+        val local         = baseDirectory.value.toURI
+        val subProjectDir = baseDirectory.value.getName
+        val remote        = s"https://raw.githubusercontent.com/${githubRepo}/${git.gitHeadCommit.value.get}"
+        Seq(s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/")
+    })
   )
-
-lazy val chameleonJS = chameleon.js
-lazy val chameleonJVM = chameleon.jvm
-
-
-pomExtra in Global := {
-  <url>https://github.com/cornerman/chameleon</url>
-  <licenses>
-    <license>
-      <name>The MIT License (MIT)</name>
-      <url>http://opensource.org/licenses/MIT</url>
-    </license>
-  </licenses>
-  <scm>
-    <url>https://github.com/cornerman/chameleon</url>
-    <connection>scm:git:git@github.com:cornerman/chameleon.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <id>jkaroff</id>
-      <name>Johannes Karoff</name>
-      <url>https://github.com/cornerman</url>
-    </developer>
-  </developers>
-}

@@ -1,3 +1,8 @@
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.28")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "2.5")
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.1.2-1")
+addSbtPlugin("org.portable-scala" % "sbt-scalajs-crossproject" % "1.2.0")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.10.0")
+
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.3.1")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.2")
+
+addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.5.10")
