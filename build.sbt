@@ -42,6 +42,7 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
   .settings(
     libraryDependencies ++=
       Deps.cats.value % Optional ::
+      Deps.scalapb.value % Optional ::
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
