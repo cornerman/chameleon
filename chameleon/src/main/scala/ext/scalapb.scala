@@ -1,12 +1,12 @@
 package chameleon.ext
 
 import chameleon._
-import _root_.scalapb.{GeneratedMessage, GeneratedMessageCompanion, Message}
+import _root_.scalapb.{GeneratedMessage, GeneratedMessageCompanion}
 import java.nio.ByteBuffer
 import scala.util.{Failure, Success}
 
 object scalapb {
-  implicit def scalapbSerializerDeserializer[T <: GeneratedMessage with Message[T]](implicit companion: GeneratedMessageCompanion[T]): SerializerDeserializer[T, ByteBuffer] = new Serializer[T, ByteBuffer] with Deserializer[T, ByteBuffer] {
+  implicit def scalapbSerializerDeserializer[T <: GeneratedMessage](implicit companion: GeneratedMessageCompanion[T]): SerializerDeserializer[T, ByteBuffer] = new Serializer[T, ByteBuffer] with Deserializer[T, ByteBuffer] {
     override def serialize(arg: T): ByteBuffer = ByteBuffer.wrap(companion.toByteArray(arg))
     override def deserialize(arg: ByteBuffer): Either[Throwable, T] = {
       val bytes = new Array[Byte](arg.remaining)
