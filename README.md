@@ -12,6 +12,10 @@ Currently supports:
 * [upickle](https://github.com/lihaoyi/upickle)
 * [boopickle](https://github.com/suzaku-io/boopickle)
 * [scodec](https://github.com/scodec/scodec)
+* [jsoniter](https://github.com/plokhotnyuk/jsoniter-scala)
+* [scalapb](https://github.com/scalapb/ScalaPB)
+
+
 
 Get latest release:
 ```scala
