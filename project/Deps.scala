@@ -12,7 +12,7 @@ object Deps {
 
   val cats = dep("org.typelevel" %%% "cats-core" % "2.7.0")
 
-  val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.10")
+  val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.11")
 
   val circe = new {
     private val version = "0.14.1"
@@ -25,5 +25,5 @@ object Deps {
     val bits = dep("org.scodec" %%% "scodec-bits" % "1.1.34")
   }
   val upickle = dep("com.lihaoyi" %%% "upickle" % "2.0.0")
-  val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.13.26")
+  val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.13.33")
 }
