@@ -10,7 +10,7 @@ object Deps {
 
   val boopickle = dep("io.suzaku" %%% "boopickle" % "1.4.0")
 
-  val cats = dep("org.typelevel" %%% "cats-core" % "2.7.0")
+  val cats = dep("org.typelevel" %%% "cats-core" % "2.8.0")
 
   val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.11")
 
