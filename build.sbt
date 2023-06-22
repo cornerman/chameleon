@@ -1,9 +1,9 @@
 inThisBuild(Seq(
   organization := "com.github.cornerman",
 
-  scalaVersion := "2.12.15",
+  scalaVersion := "2.12.17",
 
-  crossScalaVersions := Seq("2.12.15", "2.13.8", "3.1.1"),
+  crossScalaVersions := Seq("2.12.17", "2.13.10", "3.2.0"),
 
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
@@ -42,10 +42,12 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
   .settings(
     libraryDependencies ++=
       Deps.cats.value % Optional ::
+      Deps.scalapb.value % Optional ::
       Deps.boopickle.value % Optional ::
       Deps.circe.core.value % Optional ::
       Deps.circe.parser.value % Optional ::
       Deps.upickle.value % Optional ::
+      Deps.jsoniter.value % Optional ::
 
       Deps.scalaTest.value % Test ::
       Nil,

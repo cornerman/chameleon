@@ -12,10 +12,14 @@ Currently supports:
 * [upickle](https://github.com/lihaoyi/upickle)
 * [boopickle](https://github.com/suzaku-io/boopickle)
 * [scodec](https://github.com/scodec/scodec)
+* [jsoniter](https://github.com/plokhotnyuk/jsoniter-scala)
+* [scalapb](https://github.com/scalapb/ScalaPB)
+
+
 
 Get latest release:
 ```scala
-libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.3.3"
+libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.3.5"
 ```
 
 Or get development snapshots via jitpack:
