@@ -6,7 +6,7 @@ import com.github.plokhotnyuk.jsoniter_scala.core
 import scala.util.{Try, Success, Failure}
 
 object jsoniter {
-  implicit def jsoniterSerializerDeserializer[T: core.JsonCodec]: SerializerDeserializer[T, String] = new Serializer[T, String] with Deserializer[T, String] {
+  implicit def jsoniterSerializerDeserializer2[T: core.JsonValueCodec]: SerializerDeserializer[T, String] = new Serializer[T, String] with Deserializer[T, String] {
     override def serialize(arg: T): String = core.writeToString(arg)
 
     override def deserialize(arg: String): Either[Throwable, T] =
