@@ -1,9 +1,9 @@
 inThisBuild(Seq(
   organization := "com.github.cornerman",
 
-  scalaVersion := "2.12.17",
+  scalaVersion := "2.12.18",
 
-  crossScalaVersions := Seq("2.12.17", "2.13.11", "3.2.0"),
+  crossScalaVersions := Seq("2.12.18", "2.13.11", "3.2.2"),
 
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
@@ -48,6 +48,7 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
       Deps.circe.parser.value % Optional ::
       Deps.upickle.value % Optional ::
       Deps.jsoniter.value % Optional ::
+      Deps.zioJson.value % Optional ::
 
       Deps.scalaTest.value % Test ::
       Nil,
