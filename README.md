@@ -14,8 +14,7 @@ Currently supports:
 * [scodec](https://github.com/scodec/scodec)
 * [jsoniter](https://github.com/plokhotnyuk/jsoniter-scala)
 * [scalapb](https://github.com/scalapb/ScalaPB)
-
-
+* [zio-json](https://github.com/zio/zio-json)
 
 Get latest release:
 ```scala
