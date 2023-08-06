@@ -6,11 +6,11 @@ object Deps {
   // hack to expand %%% in settings, needs .value in build.sbt
   import Def.{setting => dep}
 
-  val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.2.14")
+  val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.2.16")
 
   val boopickle = dep("io.suzaku" %%% "boopickle" % "1.4.0")
 
-  val cats = dep("org.typelevel" %%% "cats-core" % "2.8.0")
+  val cats = dep("org.typelevel" %%% "cats-core" % "2.9.0")
 
   val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.11")
 
@@ -26,4 +26,5 @@ object Deps {
   }
   val upickle = dep("com.lihaoyi" %%% "upickle" % "2.0.0")
   val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.17.5")
+  val zioJson = dep("dev.zio" %%% "zio-json" % "0.6.0")
 }
