@@ -63,14 +63,4 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
         Deps.scodec.bits.value % Optional,
       )
     })
-  ).jsSettings(
-    scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((3, _)) => Seq.empty //TODO?
-      case _ =>
-        val githubRepo    = "cornerman/chameleon"
-        val local         = baseDirectory.value.toURI
-        val subProjectDir = baseDirectory.value.getName
-        val remote        = s"https://raw.githubusercontent.com/${githubRepo}/${git.gitHeadCommit.value.get}"
-        Seq(s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/")
-    })
   )

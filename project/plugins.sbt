@@ -6,3 +6,5 @@ addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.4.4")
 addSbtPlugin("com.github.sbt" % "sbt-git" % "2.0.1")
 
 addSbtPlugin("com.github.sbt" % "sbt-ci-release" % "1.5.12")
+
+addSbtPlugin("com.thoughtworks.sbt-scala-js-map" % "sbt-scala-js-map" % "4.1.1")
