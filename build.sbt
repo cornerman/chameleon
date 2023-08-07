@@ -1,9 +1,9 @@
 inThisBuild(Seq(
   organization := "com.github.cornerman",
 
-  scalaVersion := "2.12.17",
+  scalaVersion := "2.12.18",
 
-  crossScalaVersions := Seq("2.12.17", "2.13.10", "3.2.0"),
+  crossScalaVersions := Seq("2.12.18", "2.13.11", "3.2.2"),
 
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
@@ -48,6 +48,7 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
       Deps.circe.parser.value % Optional ::
       Deps.upickle.value % Optional ::
       Deps.jsoniter.value % Optional ::
+      Deps.zioJson.value % Optional ::
 
       Deps.scalaTest.value % Test ::
       Nil,
@@ -61,15 +62,5 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
         Deps.scodec.core.value % Optional,
         Deps.scodec.bits.value % Optional,
       )
-    })
-  ).jsSettings(
-    scalacOptions ++= (CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((3, _)) => Seq.empty //TODO?
-      case _ =>
-        val githubRepo    = "cornerman/chameleon"
-        val local         = baseDirectory.value.toURI
-        val subProjectDir = baseDirectory.value.getName
-        val remote        = s"https://raw.githubusercontent.com/${githubRepo}/${git.gitHeadCommit.value.get}"
-        Seq(s"-P:scalajs:mapSourceURI:$local->$remote/${subProjectDir}/")
     })
   )
