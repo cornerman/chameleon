@@ -3,7 +3,6 @@
 </p>
 
 # chameleon
-[![Build Status](https://travis-ci.org/cornerman/chameleon.svg?branch=master)](https://travis-ci.org/cornerman/chameleon)
 
 Typeclasses for serialization
 
@@ -15,6 +14,9 @@ Currently supports:
 * [jsoniter](https://github.com/plokhotnyuk/jsoniter-scala)
 * [scalapb](https://github.com/scalapb/ScalaPB)
 * [zio-json](https://github.com/zio/zio-json)
+
+We build one artifact with an `Optional` dependency on each of the above serialization libraries.
+This will not bloat your project. It only has an effect if you explicitly depend on the serialization library yourself.
 
 Get latest release:
 ```scala
