@@ -3,7 +3,7 @@ inThisBuild(Seq(
 
   scalaVersion := "2.12.19",
 
-  crossScalaVersions := Seq("2.12.19", "2.13.14", "3.2.2"),
+  crossScalaVersions := Seq("2.12.19", "2.13.14", "3.4.1"),
 
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
