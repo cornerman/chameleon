@@ -64,3 +64,14 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
       )
     })
   )
+
+lazy val http4s = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .dependsOn(chameleon)
+  .settings(commonSettings)
+  .settings(
+    name := "chameleon-http4s",
+    libraryDependencies ++=
+      Deps.http4s.value ::
+      Nil,
+  )
