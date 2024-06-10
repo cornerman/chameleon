@@ -21,7 +21,7 @@ object Deps {
   }
   val scodec = new {
     val core = dep("org.scodec" %%% "scodec-core" % "1.11.10")
-    val core2 = dep("org.scodec" %%% "scodec-core" % "2.2.2")
+    val core2 = dep("org.scodec" %%% "scodec-core" % "2.3.0")
     val bits = dep("org.scodec" %%% "scodec-bits" % "1.1.38")
   }
   val upickle = dep("com.lihaoyi" %%% "upickle" % "3.3.1")
