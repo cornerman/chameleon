@@ -20,14 +20,10 @@ This will not bloat your project. It only has an effect if you explicitly depend
 
 Get latest release:
 ```scala
-libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.3.5"
+libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.4.0"
 ```
 
-Or get development snapshots via jitpack:
-```scala
-resolvers += "jitpack" at "https://jitpack.io"
-libraryDependencies += "com.github.cornerman.chameleon" %%% "chameleon" % "master-SNAPSHOT"
-```
+We additionally publish sonatype snapshots for every commit on master.
 
 # Usage
 
@@ -52,6 +48,39 @@ val deserialized = deserializer.deserialize(serialized)
 Have typeclasses for cats (`Contravariant`, `Functor`, `Invariant`):
 ```scala
 import chameleon.ext.cats._
+```
+
+## http4s
+
+We have an extra package to integrate `http4s` with chameleon `Serializer` and `Deserializer`. Specifically to create `EntityEncoder` and `EntityDecoder`.
+
+Usage:
+```scala
+libraryDependencies += "com.github.cornerman" %%% "chameleon-http4s" % "0.4.0"
+```
+
+To work with json inside your API:
+```scala
+import chameleon.ext.http4s.JsonStringCodec.*
+import chameleon.ext.upickle.*
+
+// serialize case class as json response
+Ok(json(MyCaseClass("hallo")))
+
+// deserialize json request into case class
+jsonAs[MyCaseClass](someRequest)
+```
+
+You can also use the auto import, which provides implicit `EntityEncoder` / `EntityDecoder` for all types with `Serializer` / `Deserializer`. This should only be imported when exclusively working with json.
+```scala
+import chameleon.ext.http4s.JsonStringCodec.auto.*
+import chameleon.ext.upickle.*
+
+// serialize
+Ok(MyCaseClass("hallo"))
+
+// deserialize
+someRequest.as[MyCaseClass]
 ```
 
 # Motivation
