@@ -28,7 +28,7 @@ object JsonStringCodec {
     def apply[F[_]: Concurrent](media: Media[F])(implicit deserializer: Deserializer[A, String]): F[A] = media.as[A](implicitly, jsonDecoderOf[F, A])
   }
 
-  implicit def jsonEntityDecoderJson[F[_]: Concurrent, A](implicit serializer: Deserializer[A, String]): EntityDecoder[F, json[A]] =
+  implicit def jsonEntityDecoderJson[F[_]: Concurrent, A](implicit deserializer: Deserializer[A, String]): EntityDecoder[F, json[A]] =
     jsonDecoderOf[F, A].map(json(_))
 
   implicit def jsonEntityEncoderJson[F[_], A](implicit serializer: Serializer[A, String]): EntityEncoder[F, json[A]] =
