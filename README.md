@@ -20,7 +20,7 @@ This will not bloat your project. It only has an effect if you explicitly depend
 
 Get latest release:
 ```scala
-libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.4.0"
+libraryDependencies += "com.github.cornerman" %%% "chameleon" % "0.4.1"
 ```
 
 We additionally publish sonatype snapshots for every commit on master.
@@ -56,7 +56,7 @@ We have an extra package to integrate `http4s` with chameleon `Serializer` and `
 
 Usage:
 ```scala
-libraryDependencies += "com.github.cornerman" %%% "chameleon-http4s" % "0.4.0"
+libraryDependencies += "com.github.cornerman" %%% "chameleon-http4s" % "0.4.1"
 ```
 
 To work with json inside your API:
@@ -82,6 +82,8 @@ Ok(MyCaseClass("hallo"))
 // deserialize
 someRequest.as[MyCaseClass]
 ```
+
+There are similar helpers for other types than `String`, for example `Array[Byte]`. Also there are other serialization targets than `json` like `text`, `binary`, and `messagePack` - this depends on the semantics of the used serialization method. [See here](http4s/src/main/scala/chameleon/ext/http4s).
 
 # Motivation
 
