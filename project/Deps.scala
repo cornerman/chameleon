@@ -8,7 +8,7 @@ object Deps {
 
   val scalaTest = dep("org.scalatest" %%% "scalatest" % "3.2.19")
 
-  val boopickle = dep("io.suzaku" %%% "boopickle" % "1.4.0")
+  val boopickle = dep("io.suzaku" %%% "boopickle" % "1.5.0")
 
   val cats = dep("org.typelevel" %%% "cats-core" % "2.12.0")
 
