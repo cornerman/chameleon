@@ -36,7 +36,7 @@ lazy val commonSettings = Seq(
 
 enablePlugins(ScalaJSPlugin)
 
-lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
+lazy val chameleon = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .settings(commonSettings)
   .settings(
@@ -65,7 +65,7 @@ lazy val chameleon = crossProject(JSPlatform, JVMPlatform)
     })
   )
 
-lazy val http4s = crossProject(JSPlatform, JVMPlatform)
+lazy val http4s = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .crossType(CrossType.Pure)
   .dependsOn(chameleon)
   .settings(commonSettings)
