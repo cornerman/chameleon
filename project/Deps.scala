@@ -25,7 +25,7 @@ object Deps {
     val bits = dep("org.scodec" %%% "scodec-bits" % "1.2.1")
   }
   val upickle = dep("com.lihaoyi" %%% "upickle" % "3.3.1")
-  val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.30.10")
+  val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.30.11")
   val zioJson = dep("dev.zio" %%% "zio-json" % "0.7.3")
 
   val http4s = dep("org.http4s" %%% "http4s-core" % "0.23.28")
