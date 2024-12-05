@@ -28,5 +28,5 @@ object Deps {
   val jsoniter = dep("com.github.plokhotnyuk.jsoniter-scala" %%% "jsoniter-scala-core" % "2.31.3")
   val zioJson = dep("dev.zio" %%% "zio-json" % "0.7.3")
 
-  val http4s = dep("org.http4s" %%% "http4s-core" % "0.23.29")
+  val http4s = dep("org.http4s" %%% "http4s-core" % "0.23.30")
 }
