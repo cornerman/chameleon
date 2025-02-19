@@ -1,10 +1,17 @@
 queue_rules:
   - name: default
-    conditions:
+    queue_conditions:
+      - base=master
+      - author=scala-steward
+      - check-success~=build \(2.12.\d+\)
+      - check-success~=build \(2.13.\d+\)
+      - check-success~=build \(3.\d+.\d+\)
+    merge_conditions:
       # Conditions to get out of the queue (= merged)
       - check-success~=build \(2.12.\d+\)
       - check-success~=build \(2.13.\d+\)
       - check-success~=build \(3.\d+.\d+\)
+    merge_method: squash
 
 pull_request_rules:
   - name: assign and label scala-steward's PRs
@@ -14,13 +21,6 @@ pull_request_rules:
       label:
         add: [dependency-update]
   - name: merge scala-steward's PRs
-    conditions:
-      - base=master
-      - author=scala-steward
-      - check-success~=build \(2.12.\d+\)
-      - check-success~=build \(2.13.\d+\)
-      - check-success~=build \(3.\d+.\d+\)
+    conditions: []
     actions:
       queue:
-        name: default
-        method: squash
