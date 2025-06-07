@@ -12,7 +12,7 @@ object Deps {
 
   val cats = dep("org.typelevel" %%% "cats-core" % "2.13.0")
 
-  val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.17")
+  val scalapb = dep("com.thesamet.scalapb" %%% "scalapb-runtime" % "0.11.18")
 
   val circe = new {
     private val version = "0.14.1"
